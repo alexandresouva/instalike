@@ -1,4 +1,8 @@
-import { getAllPostsFromDB, createPostInDB } from '../models/postsModel.js';
+import {
+  getAllPostsFromDB,
+  createPostInDB,
+  updatePostInDB,
+} from '../models/postsModel.js';
 import fs from 'fs';
 
 export async function getAllPosts(_req, res) {
@@ -22,11 +26,26 @@ export async function createPost(req, res) {
   }
 }
 
+export async function updatePost(req, res) {
+  const id = req.params.id;
+  const post = {
+    ...req.body,
+    imageUrl: `https://localhost:3000/uploads/${id}.jpg`,
+  };
+  try {
+    const updatedPost = await updatePostInDB(id, post);
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    console.error('Erro ao atualizar post ->', error.message);
+    res.status(500).json({ error: 'Erro ao atualizar post' });
+  }
+}
+
 export async function imageUpload(req, res) {
   const newPost = {
     description: '',
     imageUrl: req.file.originalname,
-    alt: '',
+    imageAlt: '',
   };
   try {
     const createdPost = await createPostInDB(newPost);

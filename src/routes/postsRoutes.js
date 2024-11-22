@@ -4,6 +4,7 @@ import {
   createPost,
   getAllPosts,
   imageUpload,
+  updatePost,
 } from '../controllers/postsController.js';
 
 const upload = multer({ dest: './uploads' });
@@ -11,7 +12,8 @@ const upload = multer({ dest: './uploads' });
 const routes = (app) => {
   app.get('/posts', getAllPosts);
   app.post('/posts', createPost);
-  app.post('/posts/images', upload.single('image'), imageUpload);
+  app.post('/upload', upload.single('image'), imageUpload);
+  app.put('/upload/:id', updatePost);
 };
 
 export default routes;
