@@ -7,7 +7,7 @@ export default async function dbConnect(stringConnection) {
     console.log('Conectado ao banco de dados.');
     return mongoClient;
   } catch (error) {
-    console.log('Erro ao conectar ao banco de dados', error);
+    console.error('Erro ao conectar ao banco de dados', error);
     process.exit();
   }
 }
