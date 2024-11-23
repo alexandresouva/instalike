@@ -31,10 +31,10 @@ export async function updatePost(req, res) {
   const id = req.params.id;
 
   try {
-    const imageBuffer = fs.readFileSync(`./uploads/${id}.jpg`);
+    const imageBuffer = fs.readFileSync(`uploads/${id}.jpg`);
     const post = {
       ...req.body,
-      imageUrl: `https://localhost:3000/uploads/${id}.jpg`,
+      imageUrl: `http://localhost:3000/uploads/${id}.jpg`,
       imageAlt: await generateImageDescriptionWithGemini(imageBuffer),
     };
     const updatedPost = await updatePostInDB(id, post);
