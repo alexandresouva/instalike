@@ -25,8 +25,7 @@
   "contributors": [],
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch --env-file=.env server.js",
-    "build": "tsc"
+    "dev": "node --watch --env-file=.env server.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
