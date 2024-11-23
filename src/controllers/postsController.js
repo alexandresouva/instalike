@@ -4,6 +4,7 @@ import {
   updatePostInDB,
 } from '../models/postsModel.js';
 import fs from 'fs';
+import generateImageDescriptionWithGemini from '../services/geminiService.js';
 
 export async function getAllPosts(_req, res) {
   try {
@@ -28,11 +29,14 @@ export async function createPost(req, res) {
 
 export async function updatePost(req, res) {
   const id = req.params.id;
-  const post = {
-    ...req.body,
-    imageUrl: `https://localhost:3000/uploads/${id}.jpg`,
-  };
+
   try {
+    const imageBuffer = fs.readFileSync(`./uploads/${id}.jpg`);
+    const post = {
+      ...req.body,
+      imageUrl: `https://localhost:3000/uploads/${id}.jpg`,
+      imageAlt: await generateImageDescriptionWithGemini(imageBuffer),
+    };
     const updatedPost = await updatePostInDB(id, post);
     res.status(200).json(updatedPost);
   } catch (error) {
