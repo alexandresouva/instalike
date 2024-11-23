@@ -1,4 +1,5 @@
 // Responsabilidade: Camada que faz a conexão com o banco de dados
+import 'dotenv/config';
 import { ObjectId } from 'mongodb';
 import dbConnect from '../config/dbConfig.js';
 
